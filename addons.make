@@ -1,0 +1,7 @@
+ofxAzureKinect
+ofxGui
+ofxNetwork
+ofxOsc
+ofxPoco
+ofxXmlSettings
+ofxRemoteUI

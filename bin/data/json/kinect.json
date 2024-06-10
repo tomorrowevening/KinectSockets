@@ -1,0 +1,28 @@
+{
+  "poses": [
+    {
+      "name": "T-Pose",
+      "skeleton": []
+    },
+    {
+      "name": "Y",
+      "skeleton": []
+    },
+    {
+      "name": "M",
+      "skeleton": []
+    },
+    {
+      "name": "C",
+      "skeleton": []
+    },
+    {
+      "name": "A",
+      "skeleton": []
+    }
+  ],
+  "settings": {
+    "maxUsers": 5,
+    "trackBodies": true
+  }
+}
