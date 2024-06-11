@@ -9,30 +9,22 @@
 #define KinectController_h
 
 #include "ofMain.h"
-#include "Apollo.h"
-
-#ifdef APOLLO_KINECT
-#include "ofxAzureKinect.h"
-#endif
-
-#pragma mark - Models
-
-class KinectEvents {
-public:
-    static const string USER_JOINED;
-    static const string USER_LEFT;
-    static const string POSE_DETECTED;
-};
-
-#pragma mark - Controlller
+#include "KinectTypes.h"
 
 class KinectController : public EventDispatcher {
 public:
+    
+    vector<KinectPose> poses;
+    float maxPoseDistance = 32.0f * 10.0f;
     
     ~KinectController();
     void setup();
     void update(float deltaTime);
     void draw();
+    
+    // Utils
+    
+    bool checkSkeletonForPose(BodySkeleton skeleton, KinectPose pose);
     
     // Getters
     
@@ -48,14 +40,18 @@ protected:
     
     ofJson data;
     bool _connected;
-    int maxUsers;
+    bool _trackBodies;
+    int _maxUsers;
     int _totalUsers;
     
-#ifdef APOLLO_KINECT
+#if defined(APOLLO_MSW) || defined(APOLLO_LINUX)
     ofxAzureKinect::Device kinectDevice;
 #endif
     
-    void updatePoseDetection();
+    void setupConfig();
+    void setupPoses();
+    void setupDevice();
+    void updatePoseDetection(BodySkeleton skeleton);
 };
 
 #endif /* KinectController_h */

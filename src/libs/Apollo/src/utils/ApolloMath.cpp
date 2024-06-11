@@ -72,6 +72,14 @@ namespace Apollo {
 		float z = z1 - z2;
 		return sqrtf( (x*x) + (y*y) + (z*z));
 	}
+
+    float distance(float x1, float y1, float z1, float w1, float x2, float y2, float z2, float w2) {
+        float x = x1 - x2;
+        float y = y1 - y2;
+        float z = z1 - z2;
+        float w = w1 - w2;
+        return sqrtf( (x*x) + (y*y) + (z*z) + (w*w));
+    }
 	
 	float cosRange(float degrees, float range, float min) {
 		return (((1.0f + cos(toRad(degrees))) * 0.5f) * range) + min;

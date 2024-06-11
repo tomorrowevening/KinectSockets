@@ -58,6 +58,7 @@ namespace Apollo {
     float   distance(float a, float b);
 	float   distance(float x1, float y1, float x2, float y2);
 	float   distance(float x1, float y1, float z1, float x2, float y2, float z2);
+    float   distance(float x1, float y1, float z1, float w1, float x2, float y2, float z2, float w2);
 	
 	float cosRange(float degrees, float range, float min);
 	float sinRange(float degrees, float range, float min);
