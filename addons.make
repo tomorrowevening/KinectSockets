@@ -1,5 +1,5 @@
-ofxAzureKinect
 ofxGui
+ofxLws
 ofxNetwork
 ofxOsc
 ofxPoco
