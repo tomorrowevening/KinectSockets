@@ -139,16 +139,22 @@ void KinectController::draw() {
     outputMsg += "- Total Users: " + ofToString(_totalUsers) + " / " + ofToString(_maxUsers) + "\n";
     int totalPoses = data["poses"].size();
     outputMsg += "- Total Poses: " + ofToString(totalPoses)  + "\n";
+    for (int i = 0; i < totalPoses; i++) {
+        outputMsg += "--- Pose: \"" + poses[i].name + "\", Joints: " + ofToString(poses[i].joints.size()) + "\n";
+    }
     ofSetColor(255);
     ofDrawBitmapString(outputMsg, 25, 25);
     
 }
 
 bool KinectController::checkSkeletonForPose(BodySkeleton skeleton, KinectPose pose) {
+    int totalJoints = pose.joints.size();
+    if (totalJoints < 1) return false;
+
     float totalDistance = 0.0f;
-    for (int i = 0; i < K4ABT_JOINT_COUNT; i++) {
-        BodyJoint skeletonJoint = skeleton.joints[i];
-        BodyJoint poseJoint = pose.skeleton.joints[i];
+    for (int i = 0; i < totalJoints; i++) {
+        BodyJoint poseJoint = pose.joints[i];
+        BodyJoint skeletonJoint = skeleton.joints[poseJoint.jointID];
         float orientationDistance = distance(
              skeletonJoint.orientation.x,
              skeletonJoint.orientation.y,
@@ -161,7 +167,8 @@ bool KinectController::checkSkeletonForPose(BodySkeleton skeleton, KinectPose po
          );
         totalDistance += orientationDistance;
     }
-    return totalDistance < maxPoseDistance * 32.0f;
+    totalDistance /= (float)totalJoints;
+    return totalDistance < maxPoseDistance;
 }
 
 #pragma mark - Protected

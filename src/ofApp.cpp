@@ -21,7 +21,7 @@ void ofApp::setup() {
     
     gui.setup();
     gui.setPosition(ofGetWidth() - 220, 20);
-    gui.add(maxPoseDistance.setup("Pose Distance", kinectController.maxPoseDistance, 0.0f, 45.0f));
+    gui.add(maxPoseDistance.setup("Max Pose Distance", kinectController.maxPoseDistance, 0.0f, 45.0f));
 }
 
 //--------------------------------------------------------------

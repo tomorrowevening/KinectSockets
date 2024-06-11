@@ -68,8 +68,8 @@ struct BodyJoint
     glm::vec3 position;
     glm::quat orientation;
     ConfidenceLevel confidenceLevel;
-
     glm::vec2 projPos;
+    k4abt_joint_id_t jointID;
 };
 
 struct BodySkeleton
@@ -86,7 +86,7 @@ class KinectPose {
 public:
     bool detected;
     string name;
-    BodySkeleton skeleton;
+    vector<BodyJoint> joints;
 };
 
 #pragma mark - Events
