@@ -17,17 +17,24 @@ void ofApp::setup() {
     kinectController.addListener(KinectEvent::USER_JOINED, this);
     kinectController.addListener(KinectEvent::USER_LEFT, this);
     kinectController.addListener(KinectEvent::POSE_DETECTED, this);
+    kinectController.addListener(KinectEvent::POSE_LOST, this);
+    
+    gui.setup();
+    gui.setPosition(ofGetWidth() - 220, 20);
+    gui.add(maxPoseDistance.setup("Pose Distance", kinectController.maxPoseDistance, 0.0f, 45.0f));
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
     Motion.update();
+    kinectController.maxPoseDistance = maxPoseDistance;
     kinectController.update(ofGetElapsedTimef());
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
     kinectController.draw();
+    gui.draw();
 }
 
 //--------------------------------------------------------------
@@ -35,6 +42,7 @@ void ofApp::exit() {
     kinectController.removeListener(KinectEvent::USER_JOINED, this);
     kinectController.removeListener(KinectEvent::USER_LEFT, this);
     kinectController.removeListener(KinectEvent::POSE_DETECTED, this);
+    kinectController.removeListener(KinectEvent::POSE_LOST, this);
     Motion.removeAllTweens();
 }
 
@@ -47,6 +55,10 @@ void ofApp::evtHandler(Event *event) {
     } else if (eType == KinectEvent::USER_JOINED) {
         printf(">> User Joined!\n");
     } else if (eType == KinectEvent::POSE_DETECTED) {
-        printf(">> Pose Detected!\n");
+        KinectPose *pose = (KinectPose*)event;
+        printf(">> Pose detected!: %s\n", pose->name.c_str());
+    } else if (eType == KinectEvent::POSE_LOST) {
+        KinectPose *pose = (KinectPose*)event;
+        printf(">> Pose lost!: %s\n", pose->name.c_str());
     }
 }

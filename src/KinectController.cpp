@@ -161,7 +161,7 @@ bool KinectController::checkSkeletonForPose(BodySkeleton skeleton, KinectPose po
          );
         totalDistance += orientationDistance;
     }
-    return totalDistance < maxPoseDistance;
+    return totalDistance < maxPoseDistance * 32.0f;
 }
 
 #pragma mark - Protected

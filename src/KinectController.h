@@ -15,7 +15,7 @@ class KinectController : public EventDispatcher {
 public:
     
     vector<KinectPose> poses;
-    float maxPoseDistance = 32.0f * 10.0f;
+    float maxPoseDistance = 10.0f;
     
     ~KinectController();
     void setup();
